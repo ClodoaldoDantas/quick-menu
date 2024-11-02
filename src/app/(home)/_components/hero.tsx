@@ -17,13 +17,11 @@ export function Hero() {
             </p>
           </div>
 
-          <div>
-            <SignUpButton>
-              <Button size="lg" className="text-lg">
-                Iniciar Agora
-              </Button>
-            </SignUpButton>
-          </div>
+          <SignUpButton>
+            <Button size="lg" className="text-lg">
+              Iniciar Agora
+            </Button>
+          </SignUpButton>
         </div>
       </div>
     </section>
