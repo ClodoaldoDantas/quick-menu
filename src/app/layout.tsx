@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Roboto_Slab, Poppins } from 'next/font/google'
+import { ClerkProvider } from '@clerk/nextjs'
+import { ptBR } from '@clerk/localizations'
 import './globals.css'
 
 const robotoSlab = Roboto_Slab({
@@ -27,11 +29,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="pt-br"
-      className={`${robotoSlab.variable} ${poppins.variable} antialiased`}
-    >
-      <body>{children}</body>
-    </html>
+    <ClerkProvider localization={ptBR}>
+      <html
+        lang="pt-br"
+        className={`${robotoSlab.variable} ${poppins.variable} antialiased`}
+      >
+        <body>{children}</body>
+      </html>
+    </ClerkProvider>
   )
 }
