@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import { SignUpButton } from '@clerk/nextjs'
 
 export function Hero() {
   return (
@@ -15,10 +16,13 @@ export function Hero() {
               prática e rápida!
             </p>
           </div>
+
           <div>
-            <Button size="lg" className="text-lg">
-              Iniciar Agora
-            </Button>
+            <SignUpButton>
+              <Button size="lg" className="text-lg">
+                Iniciar Agora
+              </Button>
+            </SignUpButton>
           </div>
         </div>
       </div>
