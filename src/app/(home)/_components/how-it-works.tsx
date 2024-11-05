@@ -5,7 +5,7 @@ const steps = [
   {
     title: 'Cadastrar Estabelecimento',
     description:
-      'Cadastre-se e crie um perfil para o seu estabelecimento em nossa plataforma',
+      'Cadastre-se e crie um perfil para o seu estabelecimento através da nossa plataforma',
     icon: UserPlus,
   },
   {
