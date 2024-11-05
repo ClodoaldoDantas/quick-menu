@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
-import { SignUpButton } from '@clerk/nextjs'
+import { SignUpButton, SignedIn, SignedOut } from '@clerk/nextjs'
+import Link from 'next/link'
 
 export function Hero() {
   return (
@@ -17,11 +18,19 @@ export function Hero() {
             </p>
           </div>
 
-          <SignUpButton>
-            <Button size="lg" className="text-lg">
-              Iniciar Agora
+          <SignedOut>
+            <SignUpButton>
+              <Button size="lg" className="text-lg">
+                Crie sua conta grátis
+              </Button>
+            </SignUpButton>
+          </SignedOut>
+
+          <SignedIn>
+            <Button asChild size="lg" className="text-lg">
+              <Link href="/dashboard">Criar novo cardápio</Link>
             </Button>
-          </SignUpButton>
+          </SignedIn>
         </div>
       </div>
     </section>
