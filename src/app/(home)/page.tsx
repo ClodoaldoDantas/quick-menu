@@ -3,7 +3,7 @@ import { Hero } from './_components/hero'
 import { HowItWorks } from './_components/how-it-works'
 import { Footer } from './_components/footer'
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navigation />
