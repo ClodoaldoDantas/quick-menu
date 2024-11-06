@@ -9,3 +9,5 @@ export const establishmentTable = sqliteTable('establishment', {
   ownerId: text('owner_id').notNull(),
   createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
 })
+
+export type SelectEstablishment = typeof establishmentTable.$inferSelect
