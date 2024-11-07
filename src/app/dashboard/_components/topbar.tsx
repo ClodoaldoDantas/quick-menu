@@ -1,24 +1,25 @@
+import Link from 'next/link'
+import { getEstablishment } from '@/actions/get-establishment'
 import { Button } from '@/components/ui/button'
-import { SelectEstablishment } from '@/database/schema'
 import { UserButton } from '@clerk/nextjs'
 import { PenSquareIcon } from 'lucide-react'
 
-type TopbarProps = {
-  establishment: SelectEstablishment
-}
+export async function Topbar() {
+  const { establishment } = await getEstablishment()
 
-export function Topbar({ establishment }: TopbarProps) {
   return (
     <header className="border-b">
       <div className="container mx-auto px-4 h-16 flex flex-wrap items-center justify-between">
-        <h1 className="text-xl font-serif font-semibold">
-          {establishment.name}
-        </h1>
+        <Link href="/dashboard" className="text-xl font-serif font-semibold">
+          {establishment?.name}
+        </Link>
 
-        <div className="flex items-center gap-2 sm:gap-4">
-          <Button size="sm" variant="outline">
-            <PenSquareIcon className="size-6" />
-            <span className="hidden sm:block">Editar Informações</span>
+        <div className="flex items-center gap-4">
+          <Button size="sm" asChild variant="outline">
+            <Link href="/dashboard/profile">
+              <PenSquareIcon className="size-5" />
+              Editar Loja
+            </Link>
           </Button>
 
           <UserButton />
