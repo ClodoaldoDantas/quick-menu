@@ -3,10 +3,11 @@
 import { db } from '@/database'
 import { establishmentTable } from '@/database/schema'
 import { auth } from '@clerk/nextjs/server'
+import { eq } from 'drizzle-orm'
 import { redirect } from 'next/navigation'
 
 export type ActionResponse = {
-  message?: string | null
+  message: string | null
 }
 
 export async function createEstablishment(
@@ -15,17 +16,22 @@ export async function createEstablishment(
 ): Promise<ActionResponse> {
   const { userId } = await auth()
 
-  if (!userId) {
-    return {
-      message: 'Usuário não autenticado',
-    }
+  const result = await db.query.establishmentTable.findFirst({
+    where: eq(establishmentTable.ownerId, userId!),
+    columns: {
+      id: true,
+    },
+  })
+
+  if (result?.id) {
+    return { message: 'Você já possui um estabelecimento cadastrado' }
   }
 
   try {
     await db.insert(establishmentTable).values({
       name: formData.get('name')?.toString() ?? '',
       description: formData.get('description')?.toString() ?? '',
-      ownerId: userId,
+      ownerId: userId!,
     })
   } catch (error) {
     return { message: 'Ocorreu um erro ao salvar o registro' }
