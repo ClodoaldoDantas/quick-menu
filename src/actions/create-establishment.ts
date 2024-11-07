@@ -3,7 +3,6 @@
 import { db } from '@/database'
 import { establishmentTable } from '@/database/schema'
 import { auth } from '@clerk/nextjs/server'
-import { eq } from 'drizzle-orm'
 import { redirect } from 'next/navigation'
 
 export type ActionResponse = {
@@ -15,17 +14,6 @@ export async function createEstablishment(
   formData: FormData
 ): Promise<ActionResponse> {
   const { userId } = await auth()
-
-  const result = await db.query.establishmentTable.findFirst({
-    where: eq(establishmentTable.ownerId, userId!),
-    columns: {
-      id: true,
-    },
-  })
-
-  if (result?.id) {
-    return { message: 'Você já possui um estabelecimento cadastrado' }
-  }
 
   try {
     await db.insert(establishmentTable).values({
