@@ -6,8 +6,14 @@ import { Label } from '@/components/ui/label'
 import { SelectIcon } from './select-icon'
 import { useActionState, useState } from 'react'
 import { createCategory } from '@/actions/create-category'
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
+import { AlertCircle } from 'lucide-react'
 
-export function CreateCategoryForm() {
+export function CreateCategoryForm({
+  establishmentId,
+}: {
+  establishmentId: string
+}) {
   const [selectedIcon, setSelectedIcon] = useState<string>('utensils')
   const createCategoryWithIcon = createCategory.bind(null, selectedIcon)
 
@@ -18,6 +24,16 @@ export function CreateCategoryForm() {
 
   return (
     <form action={formAction} className="grid w-full items-center gap-4">
+      {state.message && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Atenção</AlertTitle>
+          <AlertDescription>{state.message}</AlertDescription>
+        </Alert>
+      )}
+
+      <input type="hidden" name="establishmentId" value={establishmentId} />
+
       <div className="flex flex-col space-y-1.5">
         <Label htmlFor="name">Nome</Label>
         <Input id="name" name="name" required />

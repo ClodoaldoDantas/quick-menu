@@ -1,24 +1,24 @@
 'use server'
 
 import { db } from '@/database'
-import { establishmentTable } from '@/database/schema'
+import { establishments } from '@/database/schema'
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 
-export type ActionResponse = {
+export type CreateEstablishmentResponse = {
   message: string | null
 }
 
 export async function createEstablishment(
   prevState: any,
   formData: FormData
-): Promise<ActionResponse> {
+): Promise<CreateEstablishmentResponse> {
   const { userId } = await auth()
 
   try {
-    await db.insert(establishmentTable).values({
-      name: formData.get('name')?.toString() ?? '',
-      description: formData.get('description')?.toString() ?? '',
+    await db.insert(establishments).values({
+      name: formData.get('name') as string,
+      description: formData.get('description') as string,
       ownerId: userId!,
     })
   } catch (error) {
