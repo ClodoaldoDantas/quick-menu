@@ -1,7 +1,9 @@
 'use server'
 
 import { db } from '@/database'
-import { categories } from '@/database/schema'
+import { categories, establishments } from '@/database/schema'
+import { auth } from '@clerk/nextjs/server'
+import { eq } from 'drizzle-orm'
 import { redirect } from 'next/navigation'
 
 export type CreateCategoryResponse = {
@@ -13,14 +15,20 @@ export async function createCategory(
   prevState: any,
   formData: FormData
 ): Promise<CreateCategoryResponse> {
-  const name = formData.get('name') as string
-  const establishmentId = formData.get('establishmentId') as string
+  const { userId } = await auth()
+
+  const establishment = await db.query.establishments.findFirst({
+    where: eq(establishments.ownerId, userId!),
+    columns: {
+      id: true,
+    },
+  })
 
   try {
     await db.insert(categories).values({
-      name,
       icon,
-      establishmentId,
+      name: formData.get('name') as string,
+      establishmentId: establishment!.id,
     })
   } catch (err) {
     console.error(err)

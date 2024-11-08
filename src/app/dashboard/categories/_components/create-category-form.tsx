@@ -9,11 +9,7 @@ import { createCategory } from '@/actions/create-category'
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
 import { AlertCircle } from 'lucide-react'
 
-export function CreateCategoryForm({
-  establishmentId,
-}: {
-  establishmentId: string
-}) {
+export function CreateCategoryForm() {
   const [selectedIcon, setSelectedIcon] = useState<string>('utensils')
   const createCategoryWithIcon = createCategory.bind(null, selectedIcon)
 
@@ -31,8 +27,6 @@ export function CreateCategoryForm({
           <AlertDescription>{state.message}</AlertDescription>
         </Alert>
       )}
-
-      <input type="hidden" name="establishmentId" value={establishmentId} />
 
       <div className="flex flex-col space-y-1.5">
         <Label htmlFor="name">Nome</Label>
