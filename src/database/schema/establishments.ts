@@ -8,7 +8,7 @@ export const establishments = sqliteTable('establishments', {
     .$defaultFn(() => createId())
     .primaryKey(),
   name: text('name').notNull(),
-  description: text('description').notNull(),
+  description: text('description'),
   ownerId: text('owner_id').notNull(),
   createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
 })

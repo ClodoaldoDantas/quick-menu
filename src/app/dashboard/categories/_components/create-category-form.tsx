@@ -6,31 +6,38 @@ import { Label } from '@/components/ui/label'
 import { SelectIcon } from './select-icon'
 import { useActionState, useState } from 'react'
 import { createCategory } from '@/actions/create-category'
-import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
-import { AlertCircle } from 'lucide-react'
+import { ErrorMessage } from '@/components/error-message'
+import { AlertBox } from '@/components/alert-box'
 
-export function CreateCategoryForm() {
+export function CreateCategoryForm({
+  establishmentId,
+}: {
+  establishmentId: string
+}) {
   const [selectedIcon, setSelectedIcon] = useState<string>('utensils')
-  const createCategoryWithIcon = createCategory.bind(null, selectedIcon)
+  const createCategoryWithParams = createCategory.bind(
+    null,
+    selectedIcon,
+    establishmentId
+  )
 
   const [state, formAction, isPending] = useActionState(
-    createCategoryWithIcon,
-    { message: null }
+    createCategoryWithParams,
+    { success: false, message: null, errors: null }
   )
 
   return (
     <form action={formAction} className="grid w-full items-center gap-4">
-      {state.message && (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Atenção</AlertTitle>
-          <AlertDescription>{state.message}</AlertDescription>
-        </Alert>
+      {!state.success && state.message && (
+        <AlertBox title="Atenção" variant="destructive">
+          {state.message}
+        </AlertBox>
       )}
 
       <div className="flex flex-col space-y-1.5">
         <Label htmlFor="name">Nome</Label>
-        <Input id="name" name="name" required />
+        <Input id="name" name="name" />
+        <ErrorMessage error={state.errors?.name} />
       </div>
 
       <div className="flex flex-col space-y-1.5">

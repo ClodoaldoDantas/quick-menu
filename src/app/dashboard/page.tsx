@@ -4,9 +4,11 @@ import { EmptyBlock } from '@/components/empty-block'
 import { Button } from '@/components/ui/button'
 import { BadgePlus } from 'lucide-react'
 import { CategoryCard } from './_components/category-card'
+import { getEstablishment } from '@/actions/get-establishment'
 
 export default async function DashboardPage() {
-  const { categories } = await getCategories()
+  const { establishment } = await getEstablishment()
+  const { categories } = await getCategories(establishment!.id)
 
   return (
     <>

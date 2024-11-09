@@ -1,20 +1,10 @@
 import { db } from '@/database'
-import { categories, establishments } from '@/database/schema'
-import { auth } from '@clerk/nextjs/server'
+import { categories } from '@/database/schema'
 import { eq } from 'drizzle-orm'
 
-export async function getCategories() {
-  const { userId } = await auth()
-
-  const establishment = await db.query.establishments.findFirst({
-    where: eq(establishments.ownerId, userId!),
-    columns: {
-      id: true,
-    },
-  })
-
+export async function getCategories(establishmentId: string) {
   const records = await db.query.categories.findMany({
-    where: eq(categories.establishmentId, establishment!.id),
+    where: eq(categories.establishmentId, establishmentId),
     columns: {
       id: true,
       name: true,
