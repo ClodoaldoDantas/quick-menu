@@ -44,6 +44,7 @@ export async function createCategory(
     })
   } catch (err) {
     console.error(err)
+
     return {
       success: false,
       message: 'Ocorreu um erro ao salvar o registro',

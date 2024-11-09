@@ -49,7 +49,9 @@ export async function createEstablishment(
       description,
       ownerId: userId,
     })
-  } catch (error) {
+  } catch (err) {
+    console.log(err)
+
     return {
       message: 'Ocorreu um erro ao salvar o registro',
       errors: null,
