@@ -1,9 +1,7 @@
 'use server'
 
 import { db } from '@/database'
-import { categories, establishments } from '@/database/schema'
-import { auth } from '@clerk/nextjs/server'
-import { eq } from 'drizzle-orm'
+import { categories } from '@/database/schema'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
@@ -20,8 +18,9 @@ const schema = z.object({
 export async function createCategory(
   icon: string,
   establishmentId: string,
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   prevState: any,
-  formData: FormData
+  formData: FormData,
 ): Promise<CreateCategoryResponse> {
   const validatedFields = schema.safeParse({
     name: formData.get('name') as string,

@@ -13,7 +13,7 @@ export function Navigation() {
 
       <SignedOut>
         <SignInButton>
-          <button>Fazer login</button>
+          <button type="button">Fazer login</button>
         </SignInButton>
       </SignedOut>
     </header>

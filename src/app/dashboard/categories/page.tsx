@@ -1,3 +1,4 @@
+import { getEstablishment } from '@/actions/get-establishment'
 import {
   Card,
   CardContent,
@@ -6,7 +7,6 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { CreateCategoryForm } from './_components/create-category-form'
-import { getEstablishment } from '@/actions/get-establishment'
 
 export default async function DashboardCategoriesPage() {
   const { establishment } = await getEstablishment()

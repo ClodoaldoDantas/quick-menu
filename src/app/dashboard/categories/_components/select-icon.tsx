@@ -19,7 +19,7 @@ export function SelectIcon({ value, onChange }: SelectIconProps) {
             onClick={() => onChange(id)}
             className={cn(
               'size-10 flex items-center justify-center border rounded-sm',
-              isActive && 'ring-2 ring-blue-600'
+              isActive && 'ring-2 ring-blue-600',
             )}
           >
             <Icon className="size-6" />

@@ -1,6 +1,6 @@
 import { IceCreamBowl, Salad, Utensils } from 'lucide-react'
-import { MenuSection } from './_components/menu-section'
 import { MenuItems } from './_components/menu-items'
+import { MenuSection } from './_components/menu-section'
 
 const menu = [
   {
@@ -89,7 +89,7 @@ export default function MenuPage() {
         <main>
           <h2 className="font-serif text-center text-4xl mb-8">Nosso Menu</h2>
 
-          {menu.map(section => (
+          {menu.map((section) => (
             <MenuSection
               key={section.title}
               title={section.title}

@@ -1,6 +1,6 @@
+import { createId } from '@paralleldrive/cuid2'
 import { relations, sql } from 'drizzle-orm'
 import { sqliteTable, text } from 'drizzle-orm/sqlite-core'
-import { createId } from '@paralleldrive/cuid2'
 import { categories } from './categories'
 
 export const establishments = sqliteTable('establishments', {
@@ -17,5 +17,5 @@ export const establishmentsRelations = relations(
   establishments,
   ({ many }) => ({
     categories: many(categories),
-  })
+  }),
 )

@@ -1,10 +1,10 @@
-import Link from 'next/link'
 import { getCategories } from '@/actions/get-categories'
+import { getEstablishment } from '@/actions/get-establishment'
 import { EmptyBlock } from '@/components/empty-block'
 import { Button } from '@/components/ui/button'
 import { BadgePlus } from 'lucide-react'
+import Link from 'next/link'
 import { CategoryCard } from './_components/category-card'
-import { getEstablishment } from '@/actions/get-establishment'
 
 export default async function DashboardPage() {
   const { establishment } = await getEstablishment()
@@ -25,7 +25,7 @@ export default async function DashboardPage() {
 
       {categories.length > 0 ? (
         <section className="space-y-4">
-          {categories.map(category => (
+          {categories.map((category) => (
             <CategoryCard key={category.id} category={category} />
           ))}
         </section>

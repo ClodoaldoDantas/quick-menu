@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { Topbar } from './_components/topbar'
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {

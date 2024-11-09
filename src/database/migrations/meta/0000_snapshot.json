@@ -96,12 +96,8 @@
           "name": "categories_establishment_id_establishments_id_fk",
           "tableFrom": "categories",
           "tableTo": "establishments",
-          "columnsFrom": [
-            "establishment_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["establishment_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }

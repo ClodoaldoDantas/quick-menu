@@ -18,8 +18,9 @@ const schema = z.object({
 })
 
 export async function createEstablishment(
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   prevState: any,
-  formData: FormData
+  formData: FormData,
 ): Promise<CreateEstablishmentResponse> {
   const validatedFields = schema.safeParse({
     name: formData.get('name') as string,

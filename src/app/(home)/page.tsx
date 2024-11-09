@@ -1,7 +1,7 @@
-import { Navigation } from './_components/navigation'
+import { Footer } from './_components/footer'
 import { Hero } from './_components/hero'
 import { HowItWorks } from './_components/how-it-works'
-import { Footer } from './_components/footer'
+import { Navigation } from './_components/navigation'
 
 export default async function Home() {
   return (

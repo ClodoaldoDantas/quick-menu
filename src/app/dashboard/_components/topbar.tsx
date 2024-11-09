@@ -1,8 +1,8 @@
-import Link from 'next/link'
+import { getEstablishment } from '@/actions/get-establishment'
 import { Button } from '@/components/ui/button'
 import { UserButton } from '@clerk/nextjs'
 import { StoreIcon } from 'lucide-react'
-import { getEstablishment } from '@/actions/get-establishment'
+import Link from 'next/link'
 
 export async function Topbar() {
   const { establishment } = await getEstablishment()

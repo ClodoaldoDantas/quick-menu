@@ -1,6 +1,6 @@
 import { AlertCircle } from 'lucide-react'
+import type { ReactNode } from 'react'
 import { AlertDescription, Alert as AlertRoot, AlertTitle } from './ui/alert'
-import { ReactNode } from 'react'
 
 type AlertBoxProps = {
   title: string

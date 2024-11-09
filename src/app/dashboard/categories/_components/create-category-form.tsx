@@ -1,13 +1,13 @@
 'use client'
 
+import { createCategory } from '@/actions/create-category'
+import { AlertBox } from '@/components/alert-box'
+import { ErrorMessage } from '@/components/error-message'
 import { SubmitButton } from '@/components/submit-button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { SelectIcon } from './select-icon'
 import { useActionState, useState } from 'react'
-import { createCategory } from '@/actions/create-category'
-import { ErrorMessage } from '@/components/error-message'
-import { AlertBox } from '@/components/alert-box'
+import { SelectIcon } from './select-icon'
 
 export function CreateCategoryForm({
   establishmentId,
@@ -18,12 +18,12 @@ export function CreateCategoryForm({
   const createCategoryWithParams = createCategory.bind(
     null,
     selectedIcon,
-    establishmentId
+    establishmentId,
   )
 
   const [state, formAction, isPending] = useActionState(
     createCategoryWithParams,
-    { success: false, message: null, errors: null }
+    { success: false, message: null, errors: null },
   )
 
   return (

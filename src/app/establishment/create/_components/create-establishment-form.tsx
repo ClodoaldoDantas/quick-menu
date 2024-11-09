@@ -1,9 +1,9 @@
 'use client'
 
 import { createEstablishment } from '@/actions/create-establishment'
+import { AlertBox } from '@/components/alert-box'
 import { ErrorMessage } from '@/components/error-message'
 import { SubmitButton } from '@/components/submit-button'
-import { AlertBox } from '@/components/alert-box'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
