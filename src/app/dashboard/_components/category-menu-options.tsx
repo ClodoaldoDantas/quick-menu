@@ -26,6 +26,13 @@ export function CategoryMenuOptions({ categoryId }: { categoryId: string }) {
       <DropdownMenuContent>
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
+            <Link href={`/dashboard/products?category=${categoryId}`}>
+              <ShoppingBasketIcon />
+              <span>Adicionar produto</span>
+            </Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem asChild>
             <form action={deleteCategory}>
               <input name="categoryId" type="hidden" value={categoryId} />
               <button className="flex items-center gap-2" type="submit">
@@ -33,16 +40,6 @@ export function CategoryMenuOptions({ categoryId }: { categoryId: string }) {
                 <span>Deletar categoria</span>
               </button>
             </form>
-          </DropdownMenuItem>
-
-          <DropdownMenuItem>
-            <Link
-              className="flex items-center gap-2"
-              href={`/dashboard/products?category=${categoryId}`}
-            >
-              <ShoppingBasketIcon />
-              <span>Adicionar produto</span>
-            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
