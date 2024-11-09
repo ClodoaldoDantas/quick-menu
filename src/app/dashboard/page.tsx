@@ -1,8 +1,9 @@
+import Link from 'next/link'
 import { getCategories } from '@/actions/get-categories'
 import { EmptyBlock } from '@/components/empty-block'
 import { Button } from '@/components/ui/button'
 import { BadgePlus } from 'lucide-react'
-import Link from 'next/link'
+import { CategoryCard } from './_components/category-card'
 
 export default async function DashboardPage() {
   const { categories } = await getCategories()
@@ -21,11 +22,11 @@ export default async function DashboardPage() {
       </div>
 
       {categories.length > 0 ? (
-        <ul>
+        <section className="space-y-4">
           {categories.map(category => (
-            <li key={category.id}>{category.name}</li>
+            <CategoryCard key={category.id} category={category} />
           ))}
-        </ul>
+        </section>
       ) : (
         <EmptyBlock message="Crie categorias para organizar os produtos do seu cardápio." />
       )}
