@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/toaster'
 import { ptBR } from '@clerk/localizations'
 import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata } from 'next'
@@ -34,7 +35,10 @@ export default function RootLayout({
         lang="pt-BR"
         className={`${robotoSlab.variable} ${poppins.variable} antialiased`}
       >
-        <body>{children}</body>
+        <body>
+          {children}
+          <Toaster />
+        </body>
       </html>
     </ClerkProvider>
   )
