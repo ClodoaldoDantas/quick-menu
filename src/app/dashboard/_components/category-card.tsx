@@ -1,4 +1,5 @@
 import { Card, CardHeader, CardTitle } from '@/components/ui/card'
+import { CategoryMenuOptions } from './category-menu-options'
 
 type CategoryCardProps = {
   category: {
@@ -11,8 +12,9 @@ type CategoryCardProps = {
 export function CategoryCard({ category }: CategoryCardProps) {
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex-row items-center justify-between">
         <CardTitle className="font-serif text-xl">{category.name}</CardTitle>
+        <CategoryMenuOptions categoryId={category.id} />
       </CardHeader>
     </Card>
   )

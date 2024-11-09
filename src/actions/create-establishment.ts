@@ -22,6 +22,12 @@ export async function createEstablishment(
   prevState: any,
   formData: FormData,
 ): Promise<CreateEstablishmentResponse> {
+  const { userId } = await auth()
+
+  if (!userId) {
+    throw new Error('User is not authenticated')
+  }
+
   const validatedFields = schema.safeParse({
     name: formData.get('name') as string,
     description: formData.get('description') as string,
@@ -35,14 +41,13 @@ export async function createEstablishment(
     }
   }
 
-  const { userId } = await auth()
   const { name, description } = validatedFields.data
 
   try {
     await db.insert(establishments).values({
       name,
       description,
-      ownerId: userId!,
+      ownerId: userId,
     })
   } catch (error) {
     return {
