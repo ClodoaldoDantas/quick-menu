@@ -1,51 +1,89 @@
 'use client'
 
 import { createEstablishment } from '@/actions/create-establishment'
-import { AlertBox } from '@/components/alert-box'
-import { ErrorMessage } from '@/components/error-message'
 import { SubmitButton } from '@/components/submit-button'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { useActionState } from 'react'
+import { useToast } from '@/hooks/use-toast'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+
+const createEstablishmentFormSchema = z.object({
+  name: z.string().min(3, {
+    message: 'O nome deve ter no mínimo 3 caracteres',
+  }),
+  description: z.string(),
+})
+
+export type CreateEstablishmentFormData = z.infer<
+  typeof createEstablishmentFormSchema
+>
 
 export function CreateEstablishmentForm() {
-  const [state, formAction, isPending] = useActionState(createEstablishment, {
-    success: false,
-    errors: null,
-    message: null,
-    payload: null,
+  const { toast } = useToast()
+
+  const form = useForm<CreateEstablishmentFormData>({
+    resolver: zodResolver(createEstablishmentFormSchema),
+    defaultValues: {
+      name: '',
+      description: '',
+    },
   })
 
+  async function handleCreateEstablishment(data: CreateEstablishmentFormData) {
+    const response = await createEstablishment(data)
+
+    if (!response.success) {
+      toast({ title: response.message, variant: 'destructive' })
+    }
+  }
+
   return (
-    <form action={formAction} className="grid w-full items-center gap-4">
-      {!state.success && state.message && (
-        <AlertBox title="Atenção" variant="destructive">
-          {state.message}
-        </AlertBox>
-      )}
-
-      <div className="flex flex-col space-y-1.5">
-        <Label htmlFor="name">Nome</Label>
-        <Input
-          id="name"
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(handleCreateEstablishment)}
+        className="grid w-full items-center gap-4"
+      >
+        <FormField
+          control={form.control}
           name="name"
-          defaultValue={(state.payload?.get('name') ?? '') as string}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Nome</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        <ErrorMessage error={state.errors?.name} />
-      </div>
 
-      <div className="flex flex-col space-y-1.5">
-        <Label htmlFor="description">Descrição</Label>
-        <Textarea
-          id="description"
+        <FormField
+          control={form.control}
           name="description"
-          className="min-h-40"
-          defaultValue={(state.payload?.get('description') ?? '') as string}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Descrição</FormLabel>
+              <FormControl>
+                <Textarea {...field} className="min-h-40" />
+              </FormControl>
+            </FormItem>
+          )}
         />
-      </div>
 
-      <SubmitButton isLoading={isPending}>Salvar Registro</SubmitButton>
-    </form>
+        <SubmitButton isLoading={form.formState.isSubmitting}>
+          Salvar Registro
+        </SubmitButton>
+      </form>
+    </Form>
   )
 }
