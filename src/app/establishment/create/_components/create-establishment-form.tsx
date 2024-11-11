@@ -11,9 +11,10 @@ import { useActionState } from 'react'
 
 export function CreateEstablishmentForm() {
   const [state, formAction, isPending] = useActionState(createEstablishment, {
-    message: null,
     success: false,
     errors: null,
+    message: null,
+    payload: null,
   })
 
   return (
@@ -26,13 +27,22 @@ export function CreateEstablishmentForm() {
 
       <div className="flex flex-col space-y-1.5">
         <Label htmlFor="name">Nome</Label>
-        <Input id="name" name="name" />
+        <Input
+          id="name"
+          name="name"
+          defaultValue={(state.payload?.get('name') ?? '') as string}
+        />
         <ErrorMessage error={state.errors?.name} />
       </div>
 
       <div className="flex flex-col space-y-1.5">
         <Label htmlFor="description">Descrição</Label>
-        <Textarea id="description" name="description" className="min-h-40" />
+        <Textarea
+          id="description"
+          name="description"
+          className="min-h-40"
+          defaultValue={(state.payload?.get('description') ?? '') as string}
+        />
       </div>
 
       <SubmitButton isLoading={isPending}>Salvar Registro</SubmitButton>

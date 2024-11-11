@@ -23,7 +23,12 @@ export function CreateCategoryForm({
 
   const [state, formAction, isPending] = useActionState(
     createCategoryWithParams,
-    { success: false, message: null, errors: null },
+    {
+      success: false,
+      message: null,
+      errors: null,
+      payload: null,
+    },
   )
 
   return (
@@ -36,7 +41,11 @@ export function CreateCategoryForm({
 
       <div className="flex flex-col space-y-1.5">
         <Label htmlFor="name">Nome</Label>
-        <Input id="name" name="name" />
+        <Input
+          id="name"
+          name="name"
+          defaultValue={(state.payload?.get('name') ?? '') as string}
+        />
         <ErrorMessage error={state.errors?.name} />
       </div>
 

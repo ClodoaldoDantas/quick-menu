@@ -6,9 +6,10 @@ import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 export type CreateCategoryResponse = {
-  message: string | null
-  errors: Record<string, string[]> | null
   success: boolean
+  errors: Record<string, string[]> | null
+  message: string | null
+  payload: FormData | null
 }
 
 const schema = z.object({
@@ -28,9 +29,10 @@ export async function createCategory(
 
   if (!validatedFields.success) {
     return {
-      message: null,
-      errors: validatedFields.error.flatten().fieldErrors,
       success: false,
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: null,
+      payload: formData,
     }
   }
 
@@ -47,8 +49,9 @@ export async function createCategory(
 
     return {
       success: false,
-      message: 'Ocorreu um erro ao salvar o registro',
       errors: null,
+      message: 'Ocorreu um erro ao salvar o registro',
+      payload: formData,
     }
   }
 

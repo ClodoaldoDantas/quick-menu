@@ -7,9 +7,10 @@ import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 export type CreateEstablishmentResponse = {
-  message: string | null
   errors: Record<string, string[]> | null
   success: boolean
+  message: string | null
+  payload: FormData | null
 }
 
 const schema = z.object({
@@ -35,9 +36,10 @@ export async function createEstablishment(
 
   if (!validatedFields.success) {
     return {
-      message: null,
-      errors: validatedFields.error.flatten().fieldErrors,
       success: false,
+      errors: validatedFields.error.flatten().fieldErrors,
+      payload: formData,
+      message: null,
     }
   }
 
@@ -53,9 +55,10 @@ export async function createEstablishment(
     console.log(err)
 
     return {
-      message: 'Ocorreu um erro ao salvar o registro',
-      errors: null,
       success: false,
+      errors: null,
+      payload: formData,
+      message: 'Ocorreu um erro ao salvar o registro.',
     }
   }
 
