@@ -1,60 +1,88 @@
 'use client'
 
 import { createCategory } from '@/actions/create-category'
-import { AlertBox } from '@/components/alert-box'
-import { ErrorMessage } from '@/components/error-message'
 import { SubmitButton } from '@/components/submit-button'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useActionState, useState } from 'react'
+import { useToast } from '@/hooks/use-toast'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 import { SelectIcon } from './select-icon'
 
-export function CreateCategoryForm({
-  establishmentId,
-}: {
-  establishmentId: string
-}) {
-  const [selectedIcon, setSelectedIcon] = useState<string>('utensils')
-  const createCategoryWithParams = createCategory.bind(
-    null,
-    selectedIcon,
-    establishmentId,
-  )
+const createCategoryFormSchema = z.object({
+  name: z.string().min(3, {
+    message: 'O nome deve ter no mínimo 3 caracteres',
+  }),
+})
 
-  const [state, formAction, isPending] = useActionState(
-    createCategoryWithParams,
-    {
-      success: false,
-      message: null,
-      errors: null,
-      payload: null,
+export type CreateCategoryFormData = z.infer<typeof createCategoryFormSchema>
+
+type CreateCategoryFormProps = {
+  establishmentId: string
+}
+
+export function CreateCategoryForm(props: CreateCategoryFormProps) {
+  const { toast } = useToast()
+  const [selectedIcon, setSelectedIcon] = useState<string>('utensils')
+
+  const form = useForm<CreateCategoryFormData>({
+    resolver: zodResolver(createCategoryFormSchema),
+    defaultValues: {
+      name: '',
     },
-  )
+  })
+
+  async function handleCreateCategory(data: CreateCategoryFormData) {
+    const response = await createCategory({
+      name: data.name,
+      icon: selectedIcon,
+      establishmentId: props.establishmentId,
+    })
+
+    if (!response.success) {
+      toast({ title: response.message, variant: 'destructive' })
+    }
+  }
 
   return (
-    <form action={formAction} className="grid w-full items-center gap-4">
-      {!state.success && state.message && (
-        <AlertBox title="Atenção" variant="destructive">
-          {state.message}
-        </AlertBox>
-      )}
-
-      <div className="flex flex-col space-y-1.5">
-        <Label htmlFor="name">Nome</Label>
-        <Input
-          id="name"
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(handleCreateCategory)}
+        className="grid w-full items-center gap-4"
+      >
+        <FormField
+          control={form.control}
           name="name"
-          defaultValue={(state.payload?.get('name') ?? '') as string}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Nome</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        <ErrorMessage error={state.errors?.name} />
-      </div>
 
-      <div className="flex flex-col space-y-1.5">
-        <Label htmlFor="name">Ícone</Label>
-        <SelectIcon value={selectedIcon} onChange={setSelectedIcon} />
-      </div>
+        <div className="flex flex-col space-y-1.5">
+          <Label htmlFor="name">Ícone</Label>
+          <SelectIcon value={selectedIcon} onChange={setSelectedIcon} />
+        </div>
 
-      <SubmitButton isLoading={isPending}>Salvar Registro</SubmitButton>
-    </form>
+        <SubmitButton isLoading={form.formState.isSubmitting}>
+          Salvar Registro
+        </SubmitButton>
+      </form>
+    </Form>
   )
 }

@@ -3,41 +3,23 @@
 import { db } from '@/database'
 import { categories } from '@/database/schema'
 import { redirect } from 'next/navigation'
-import { z } from 'zod'
 
-export type CreateCategoryResponse = {
-  success: boolean
-  errors: Record<string, string[]> | null
-  message: string | null
-  payload: FormData | null
+type CreateCategoryRequest = {
+  name: string
+  icon: string
+  establishmentId: string
 }
 
-const schema = z.object({
-  name: z.string().min(3, 'O nome deve ter no mínimo 3 caracteres'),
-})
+type CreateCategoryResponse = {
+  success: boolean
+  message: string
+}
 
-export async function createCategory(
-  icon: string,
-  establishmentId: string,
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  prevState: any,
-  formData: FormData,
-): Promise<CreateCategoryResponse> {
-  const validatedFields = schema.safeParse({
-    name: formData.get('name') as string,
-  })
-
-  if (!validatedFields.success) {
-    return {
-      success: false,
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: null,
-      payload: formData,
-    }
-  }
-
-  const { name } = validatedFields.data
-
+export async function createCategory({
+  name,
+  icon,
+  establishmentId,
+}: CreateCategoryRequest): Promise<CreateCategoryResponse> {
   try {
     await db.insert(categories).values({
       icon,
@@ -49,9 +31,7 @@ export async function createCategory(
 
     return {
       success: false,
-      errors: null,
-      message: 'Ocorreu um erro ao salvar o registro',
-      payload: formData,
+      message: 'Erro ao criar categoria',
     }
   }
 
