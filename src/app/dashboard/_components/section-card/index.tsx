@@ -1,20 +1,15 @@
-import { Card, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 import { PlusIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
+import type { ICategory } from '@/types/menu'
 import Link from 'next/link'
 import { DeleteCategory } from './delete-category-button'
+import { ProductItem } from './product-item'
 
-type CategoryCardProps = {
-  category: {
-    icon: string
-    id: string
-    name: string
-  }
-}
-
-export function CategoryCard({ category }: CategoryCardProps) {
+export function SectionCard({ category }: { category: ICategory }) {
   return (
     <Card>
       <CardHeader className="flex-row items-center justify-between">
@@ -31,6 +26,20 @@ export function CategoryCard({ category }: CategoryCardProps) {
           <DeleteCategory categoryId={category.id} />
         </div>
       </CardHeader>
+
+      <CardContent>
+        <ul className="space-y-3">
+          {category.products.map((product, index) => (
+            <li key={product.id}>
+              <ProductItem product={product} />
+
+              {index !== category.products.length - 1 && (
+                <Separator className="mt-3 bg-gray-200" />
+              )}
+            </li>
+          ))}
+        </ul>
+      </CardContent>
     </Card>
   )
 }

@@ -4,7 +4,7 @@ import { EmptyBlock } from '@/components/empty-block'
 import { Button } from '@/components/ui/button'
 import { BadgePlus } from 'lucide-react'
 import Link from 'next/link'
-import { CategoryCard } from './_components/category-card'
+import { SectionCard } from './_components/section-card'
 
 export default async function DashboardPage() {
   const { establishment } = await getEstablishment()
@@ -24,11 +24,11 @@ export default async function DashboardPage() {
       </div>
 
       {categories.length > 0 ? (
-        <section className="space-y-4">
+        <div className="space-y-4">
           {categories.map((category) => (
-            <CategoryCard key={category.id} category={category} />
+            <SectionCard key={category.id} category={category} />
           ))}
-        </section>
+        </div>
       ) : (
         <EmptyBlock message="Crie categorias para organizar os produtos do seu cardápio." />
       )}

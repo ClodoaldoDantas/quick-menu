@@ -11,7 +11,7 @@ export const products = sqliteTable('products', {
   description: text('description'),
   price: integer('price').notNull(),
   categoryId: text('category_id')
-    .references(() => categories.id)
+    .references(() => categories.id, { onDelete: 'cascade' })
     .notNull(),
   createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
 })

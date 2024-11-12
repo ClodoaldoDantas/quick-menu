@@ -10,6 +10,16 @@ export async function getCategories(establishmentId: string) {
       name: true,
       icon: true,
     },
+    with: {
+      products: {
+        columns: {
+          id: true,
+          name: true,
+          description: true,
+          price: true,
+        },
+      },
+    },
   })
 
   return {
