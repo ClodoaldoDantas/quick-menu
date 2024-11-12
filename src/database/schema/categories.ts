@@ -2,6 +2,7 @@ import { createId } from '@paralleldrive/cuid2'
 import { relations, sql } from 'drizzle-orm'
 import { sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { establishments } from './establishments'
+import { products } from './products'
 
 export const categories = sqliteTable('categories', {
   id: text()
@@ -15,9 +16,10 @@ export const categories = sqliteTable('categories', {
   createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
 })
 
-export const categoriesRelations = relations(categories, ({ one }) => ({
+export const categoriesRelations = relations(categories, ({ one, many }) => ({
   establishment: one(establishments, {
     fields: [categories.establishmentId],
     references: [establishments.id],
   }),
+  products: many(products),
 }))

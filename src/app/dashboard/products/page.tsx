@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { CreateProductForm } from './_components/create-product-form'
 
 export default async function DashboardProductsPage() {
   return (
@@ -17,7 +18,9 @@ export default async function DashboardProductsPage() {
           </CardDescription>
         </CardHeader>
 
-        <CardContent>{/* add product form */}</CardContent>
+        <CardContent>
+          <CreateProductForm />
+        </CardContent>
       </Card>
     </div>
   )

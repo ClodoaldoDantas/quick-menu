@@ -15,6 +15,27 @@
       "when": 1731113457142,
       "tag": "0001_public_emma_frost",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1731452705464,
+      "tag": "0002_curly_vertigo",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1731453045151,
+      "tag": "0003_lively_skrulls",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1731453211885,
+      "tag": "0004_true_selene",
+      "breakpoints": true
     }
   ]
 }
