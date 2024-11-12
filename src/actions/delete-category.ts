@@ -10,10 +10,8 @@ type DeleteCategoryResponse = {
 }
 
 export async function deleteCategory(
-  formData: FormData,
+  categoryId: string,
 ): Promise<DeleteCategoryResponse> {
-  const categoryId = formData.get('categoryId') as string
-
   try {
     await db.delete(categories).where(eq(categories.id, categoryId))
   } catch (error) {
