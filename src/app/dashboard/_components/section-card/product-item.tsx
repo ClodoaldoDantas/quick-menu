@@ -1,6 +1,5 @@
-import { Button } from '@/components/ui/button'
 import type { IProduct } from '@/types/menu'
-import { XIcon } from 'lucide-react'
+import { DeleteProductButton } from './delete-product-button'
 
 export function ProductItem({ product }: { product: IProduct }) {
   const formattedPrice = new Intl.NumberFormat('pt-BR', {
@@ -18,10 +17,7 @@ export function ProductItem({ product }: { product: IProduct }) {
         </span>
       </div>
 
-      <Button variant="outline" size="icon">
-        <XIcon />
-        <span className="sr-only">Deletar produto</span>
-      </Button>
+      <DeleteProductButton productId={product.id} />
     </div>
   )
 }

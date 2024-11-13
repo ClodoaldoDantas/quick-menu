@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import type { ICategory } from '@/types/menu'
 import Link from 'next/link'
-import { DeleteCategory } from './delete-category-button'
+import { DeleteCategoryButton } from './delete-category-button'
 import { ProductItem } from './product-item'
 
 export function SectionCard({ category }: { category: ICategory }) {
@@ -23,7 +23,7 @@ export function SectionCard({ category }: { category: ICategory }) {
             </Link>
           </Button>
 
-          <DeleteCategory categoryId={category.id} />
+          <DeleteCategoryButton categoryId={category.id} />
         </div>
       </CardHeader>
 

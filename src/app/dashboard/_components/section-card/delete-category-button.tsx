@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { useToast } from '@/hooks/use-toast'
 import { Trash2Icon } from 'lucide-react'
 
-export function DeleteCategory({ categoryId }: { categoryId: string }) {
+export function DeleteCategoryButton({ categoryId }: { categoryId: string }) {
   const { toast } = useToast()
 
   async function handleDeleteCategory() {
