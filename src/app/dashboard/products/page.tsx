@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/card'
 import { CreateProductForm } from './_components/create-product-form'
 
-export default async function DashboardProductsPage() {
+export default function DashboardProductsPage() {
   return (
     <div className="flex items-center justify-center">
       <Card className="max-w-[460px] w-full">
