@@ -1,5 +1,6 @@
 import type { IProduct } from '@/types/menu'
 import { DeleteProductButton } from './delete-product-button'
+import { ProductInfoButton } from './product-info-button'
 
 export function ProductItem({ product }: { product: IProduct }) {
   const formattedPrice = new Intl.NumberFormat('pt-BR', {
@@ -17,7 +18,13 @@ export function ProductItem({ product }: { product: IProduct }) {
         </span>
       </div>
 
-      <DeleteProductButton productId={product.id} />
+      <div className="flex items-center gap-2">
+        {product.description && (
+          <ProductInfoButton description={product.description} />
+        )}
+
+        <DeleteProductButton productId={product.id} />
+      </div>
     </div>
   )
 }
