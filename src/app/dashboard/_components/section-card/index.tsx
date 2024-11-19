@@ -5,15 +5,21 @@ import { PlusIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import type { ICategory } from '@/types/menu'
+import { icons } from '@/utils/icons'
 import Link from 'next/link'
 import { DeleteCategoryButton } from './delete-category-button'
 import { ProductItem } from './product-item'
 
 export function SectionCard({ category }: { category: ICategory }) {
+  const Icon = icons[category.icon as keyof typeof icons]
+
   return (
     <Card>
       <CardHeader className="flex-row items-center justify-between">
-        <CardTitle className="font-serif text-xl">{category.name}</CardTitle>
+        <CardTitle className="font-serif text-xl flex items-center gap-2">
+          <Icon className="size-6" />
+          {category.name}
+        </CardTitle>
 
         <div className="flex items-center gap-2">
           <Button variant="outline" size="icon" asChild>

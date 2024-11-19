@@ -9,7 +9,8 @@ type SelectIconProps = {
 export function SelectIcon({ value, onChange }: SelectIconProps) {
   return (
     <div className="flex items-center flex-wrap gap-3">
-      {icons.map(({ id, icon: Icon }) => {
+      {Object.keys(icons).map((id) => {
+        const Icon = icons[id as keyof typeof icons]
         const isActive = value === id
 
         return (
