@@ -1,12 +1,10 @@
 import type { IProduct } from '@/types/menu'
+import { priceFormatter } from '@/utils/price-formatter'
 import { DeleteProductButton } from './delete-product-button'
 import { ProductInfoButton } from './product-info-button'
 
 export function ProductItem({ product }: { product: IProduct }) {
-  const formattedPrice = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  }).format(product.price / 100)
+  const formattedPrice = priceFormatter.format(product.price / 100)
 
   return (
     <div className="flex items-center justify-between">

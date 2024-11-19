@@ -1,15 +1,8 @@
 import { Separator } from '@/components/ui/separator'
+import type { IProduct } from '@/types/menu'
 import { MenuItem } from './menu-item'
 
-type MenuItemsProps = {
-  items: {
-    name: string
-    description: string
-    price: number
-  }[]
-}
-
-export function MenuItems({ items }: MenuItemsProps) {
+export function MenuItems({ items }: { items: IProduct[] }) {
   return (
     <ul className="space-y-6">
       {items.map((item, index) => (
