@@ -4,11 +4,17 @@ import { EmptyBlock } from '@/components/empty-block'
 import { Button } from '@/components/ui/button'
 import { BadgePlus } from 'lucide-react'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { SectionCard } from './_components/section-card'
 
 export default async function DashboardPage() {
   const { establishment } = await getEstablishment()
-  const { categories } = await getCategories(establishment!.id)
+
+  if (!establishment) {
+    redirect('/establishment/create')
+  }
+
+  const { categories } = await getCategories(establishment.id)
 
   return (
     <>

@@ -1,12 +1,9 @@
-import { getEstablishment } from '@/actions/get-establishment'
 import { Button } from '@/components/ui/button'
 import { UserButton } from '@clerk/nextjs'
 import { StoreIcon } from 'lucide-react'
 import Link from 'next/link'
 
 export async function Topbar() {
-  const { establishment } = await getEstablishment()
-
   return (
     <header className="border-b">
       <div className="max-w-6xl mx-auto px-4 h-16 flex flex-wrap items-center justify-between">
@@ -18,7 +15,7 @@ export async function Topbar() {
           <Button size="sm" asChild variant="outline">
             <Link href="/dashboard/profile">
               <StoreIcon className="size-5" />
-              {establishment?.name}
+              Editar Loja
             </Link>
           </Button>
 

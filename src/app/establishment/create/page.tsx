@@ -1,3 +1,4 @@
+import { getEstablishment } from '@/actions/get-establishment'
 import {
   Card,
   CardContent,
@@ -6,8 +7,11 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { CreateEstablishmentForm } from './_components/create-establishment-form'
+import { StoreInfoBlock } from './_components/store-info-block'
 
 export default async function CreateEstablishment() {
+  const { establishment } = await getEstablishment()
+
   return (
     <div className="h-screen w-full flex items-center justify-center px-4">
       <Card className="max-w-[460px] w-full">
@@ -20,7 +24,7 @@ export default async function CreateEstablishment() {
         </CardHeader>
 
         <CardContent>
-          <CreateEstablishmentForm />
+          {establishment ? <StoreInfoBlock /> : <CreateEstablishmentForm />}
         </CardContent>
       </Card>
     </div>
