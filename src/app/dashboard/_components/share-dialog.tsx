@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dialog'
 import { Share2Icon } from 'lucide-react'
 import { CopyToClipboard } from './copy-to-clipboard'
+import { QrCodeDisplay } from './qr-code-display'
 
 export function ShareDialog({ establishmentId }: { establishmentId: string }) {
   const url = new URL(`/menu/${establishmentId}`, window.location.origin)
@@ -32,7 +33,8 @@ export function ShareDialog({ establishmentId }: { establishmentId: string }) {
           </DialogDescription>
         </DialogHeader>
 
-        <div>
+        <div className="space-y-4">
+          <QrCodeDisplay value={url.toString()} />
           <CopyToClipboard value={url.toString()} />
         </div>
       </DialogContent>
