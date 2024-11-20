@@ -3,14 +3,13 @@ import { notFound } from 'next/navigation'
 import { MenuItems } from './_components/menu-items'
 import { MenuSection } from './_components/menu-section'
 
-export default async function MenuPage({
-  params,
-}: {
-  params: {
-    establishmentId: string
-  }
-}) {
-  const { establishment } = await getEstablishmentById(params.establishmentId)
+type MenuPageProps = {
+  params: Promise<{ establishmentId: string }>
+}
+
+export default async function MenuPage({ params }: MenuPageProps) {
+  const establishmentId = (await params).establishmentId
+  const { establishment } = await getEstablishmentById(establishmentId)
 
   if (!establishment) {
     notFound()
