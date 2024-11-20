@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { CheckIcon, CopyIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
@@ -21,21 +22,19 @@ export function CopyToClipboard({ value }: { value: string }) {
     setHasCopied(true)
   }
 
-  return (
-    <button
-      type="button"
+  return hasCopied ? (
+    <Button className="w-full" disabled variant="outline">
+      <CheckIcon className="size-6 text-green-600" />
+      <span>Copiado</span>
+    </Button>
+  ) : (
+    <Button
+      className="w-full"
       onClick={handleCopyToClipboard}
-      className="h-10 border w-full flex items-center pl-4 rounded hover:bg-accent hover:text-accent-foreground"
+      variant="outline"
     >
-      <span className="flex-1 text-left text-sm text-zinc-600">{value}</span>
-
-      <div className="border-l size-10 flex items-center justify-center">
-        {hasCopied ? (
-          <CheckIcon className="size-5 text-green-600" />
-        ) : (
-          <CopyIcon className="size-5" />
-        )}
-      </div>
-    </button>
+      <CopyIcon className="size-6" />
+      Copiar link
+    </Button>
   )
 }
