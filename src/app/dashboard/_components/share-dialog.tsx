@@ -20,7 +20,7 @@ export function ShareDialog({ establishmentId }: { establishmentId: string }) {
     <Dialog>
       <DialogTrigger asChild>
         <Button size="sm" variant="outline">
-          <Share2Icon className="size-5" />
+          <Share2Icon className="size-6" />
           Compartilhar
         </Button>
       </DialogTrigger>
@@ -33,7 +33,7 @@ export function ShareDialog({ establishmentId }: { establishmentId: string }) {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4">
+        <div className="space-y-2">
           <QrCodeDisplay value={url.toString()} />
           <CopyToClipboard value={url.toString()} />
         </div>
