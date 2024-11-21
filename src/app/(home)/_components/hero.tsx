@@ -28,7 +28,7 @@ export function Hero() {
 
           <SignedIn>
             <Button asChild size="lg" className="text-lg">
-              <Link href="/dashboard">Criar novo cardápio</Link>
+              <Link href="/dashboard">Editar meu cardápio</Link>
             </Button>
           </SignedIn>
         </div>
