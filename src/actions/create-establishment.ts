@@ -49,5 +49,5 @@ export async function createEstablishment(
     }
   }
 
-  redirect('/dashboard')
+  redirect('/sign-in')
 }

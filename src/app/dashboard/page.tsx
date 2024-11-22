@@ -1,11 +1,14 @@
+import { getCategories } from '@/actions/get-categories'
+import { getEstablishment } from '@/actions/get-establishment'
 import { EmptyBlock } from '@/components/empty-block'
 import { Button } from '@/components/ui/button'
 import { BadgePlus } from 'lucide-react'
 import Link from 'next/link'
+import { SectionCard } from './_components/section-card'
 
 export default async function DashboardPage() {
-  // const { establishment } = await getEstablishment()
-  // const { categories } = await getCategories(establishment!.id)
+  const { establishment } = await getEstablishment()
+  const { categories } = await getCategories(establishment!.id)
 
   return (
     <>
@@ -20,9 +23,7 @@ export default async function DashboardPage() {
         </Button>
       </div>
 
-      <EmptyBlock message="Crie categorias para organizar os produtos do seu cardápio." />
-
-      {/* {categories.length > 0 ? (
+      {categories.length > 0 ? (
         <div className="space-y-4">
           {categories.map((category) => (
             <SectionCard key={category.id} category={category} />
@@ -30,7 +31,7 @@ export default async function DashboardPage() {
         </div>
       ) : (
         <EmptyBlock message="Crie categorias para organizar os produtos do seu cardápio." />
-      )} */}
+      )}
     </>
   )
 }
