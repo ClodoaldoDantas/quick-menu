@@ -1,10 +1,9 @@
 import { db } from '@/database'
 import { establishments } from '@/database/schema'
-import { auth } from '@clerk/nextjs/server'
 import { eq } from 'drizzle-orm'
 
 export async function getEstablishment() {
-  const { userId } = await auth()
+  const userId = null
 
   if (!userId) {
     throw new Error('User is not authenticated')

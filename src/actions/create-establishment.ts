@@ -1,9 +1,10 @@
 'use server'
 
-import type { CreateEstablishmentFormData } from '@/app/establishment/create/_components/create-establishment-form'
+import type { CreateEstablishmentFormData } from '@/app/sign-up/_components/create-establishment-form'
 import { db } from '@/database'
 import { establishments } from '@/database/schema'
-import { auth } from '@clerk/nextjs/server'
+import bcrypt from 'bcrypt'
+import { eq } from 'drizzle-orm'
 import { redirect } from 'next/navigation'
 
 type CreateEstablishmentResponse = {
@@ -14,19 +15,30 @@ type CreateEstablishmentResponse = {
 export async function createEstablishment(
   data: CreateEstablishmentFormData,
 ): Promise<CreateEstablishmentResponse> {
-  const { userId } = await auth()
+  const { name, description, email, password } = data
 
-  if (!userId) {
-    return { success: false, message: 'Usuário não autenticado' }
+  const establishmentAlreadyExists = await db.query.establishments.findFirst({
+    where: eq(establishments.email, email),
+    columns: {
+      id: true,
+    },
+  })
+
+  if (establishmentAlreadyExists) {
+    return {
+      success: false,
+      message: 'Estabelecimento já cadastrado',
+    }
   }
 
-  const { name, description } = data
+  const hashedPassword = await bcrypt.hash(password, 10)
 
   try {
     await db.insert(establishments).values({
       name,
       description,
-      ownerId: userId,
+      email,
+      password: hashedPassword,
     })
   } catch (err) {
     console.log(err)

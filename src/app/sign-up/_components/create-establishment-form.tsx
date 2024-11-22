@@ -22,6 +22,12 @@ const createEstablishmentFormSchema = z.object({
     message: 'O nome deve ter no mínimo 3 caracteres',
   }),
   description: z.string(),
+  email: z.string().email({
+    message: 'Digite um email válido',
+  }),
+  password: z.string().min(6, {
+    message: 'A senha deve ter no mínimo 6 caracteres',
+  }),
 })
 
 export type CreateEstablishmentFormData = z.infer<
@@ -36,6 +42,8 @@ export function CreateEstablishmentForm() {
     defaultValues: {
       name: '',
       description: '',
+      email: '',
+      password: '',
     },
   })
 
@@ -74,8 +82,36 @@ export function CreateEstablishmentForm() {
             <FormItem>
               <FormLabel>Descrição</FormLabel>
               <FormControl>
-                <Textarea {...field} className="min-h-40" />
+                <Textarea {...field} className="min-h-20" />
               </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Senha</FormLabel>
+              <FormControl>
+                <Input type="password" {...field} />
+              </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

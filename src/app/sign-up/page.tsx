@@ -1,4 +1,3 @@
-import { getEstablishment } from '@/actions/get-establishment'
 import {
   Card,
   CardContent,
@@ -7,13 +6,10 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { CreateEstablishmentForm } from './_components/create-establishment-form'
-import { StoreInfoBlock } from './_components/store-info-block'
 
-export default async function CreateEstablishment() {
-  const { establishment } = await getEstablishment()
-
+export default function SignUpPage() {
   return (
-    <div className="h-screen w-full flex items-center justify-center px-4">
+    <div className="py-8 w-full flex items-center justify-center px-4">
       <Card className="max-w-[460px] w-full">
         <CardHeader>
           <CardTitle>Criar Estabelecimento</CardTitle>
@@ -24,7 +20,7 @@ export default async function CreateEstablishment() {
         </CardHeader>
 
         <CardContent>
-          {establishment ? <StoreInfoBlock /> : <CreateEstablishmentForm />}
+          <CreateEstablishmentForm />
         </CardContent>
       </Card>
     </div>

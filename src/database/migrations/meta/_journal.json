@@ -43,6 +43,13 @@
       "when": 1731455557476,
       "tag": "0005_romantic_firebird",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1732300365210,
+      "tag": "0006_moaning_lightspeed",
+      "breakpoints": true
     }
   ]
 }
