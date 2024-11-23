@@ -7,7 +7,6 @@ import {
 } from '@/components/ui/card'
 import { Suspense } from 'react'
 import { CreateProductForm } from './_components/create-product-form'
-import { LoadingForm } from './_components/loading-form'
 
 export default function DashboardProductsPage() {
   return (
@@ -21,7 +20,7 @@ export default function DashboardProductsPage() {
         </CardHeader>
 
         <CardContent>
-          <Suspense fallback={<LoadingForm />}>
+          <Suspense>
             <CreateProductForm />
           </Suspense>
         </CardContent>
