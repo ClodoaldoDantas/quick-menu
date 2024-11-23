@@ -19,17 +19,19 @@ export default async function MenuPage({ params }: MenuPageProps) {
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <header className="text-center mb-12">
-          <h1 className="text-5xl font-serif font-bold mb-4">
+          <h1 className="text-4xl sm:text-5xl font-serif font-bold mb-4">
             {establishment.name}
           </h1>
 
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
             {establishment.description}
           </p>
         </header>
 
         <main>
-          <h2 className="font-serif text-center text-4xl mb-8">Nosso Menu</h2>
+          <h2 className="font-serif text-center text-3xl sm:text-4xl mb-8">
+            Nosso Menu
+          </h2>
 
           {establishment.categories.map((category) => (
             <MenuSection

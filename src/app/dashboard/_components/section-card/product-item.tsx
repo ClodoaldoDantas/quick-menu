@@ -9,7 +9,9 @@ export function ProductItem({ product }: { product: IProduct }) {
   return (
     <div className="flex items-center justify-between">
       <div>
-        <h3 className="text-xl font-serif font-medium">{product.name}</h3>
+        <h3 className="text-base sm:text-xl font-serif font-medium">
+          {product.name}
+        </h3>
 
         <span className="text-lg font-serif font-medium text-muted-foreground">
           {formattedPrice}

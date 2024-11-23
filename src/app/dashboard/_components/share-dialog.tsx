@@ -21,7 +21,7 @@ export function ShareDialog({ establishmentId }: { establishmentId: string }) {
       <DialogTrigger asChild>
         <Button size="sm" variant="outline">
           <Share2Icon className="size-6" />
-          Compartilhar
+          <span className="hidden sm:block">Compartilhar</span>
         </Button>
       </DialogTrigger>
       <DialogContent>

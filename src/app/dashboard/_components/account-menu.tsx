@@ -23,7 +23,7 @@ export function AccountMenu({ establishmentName }: AccountMenuProps) {
       <DropdownMenuTrigger asChild>
         <Button size="sm" variant="outline">
           <StoreIcon className="size-5" />
-          {establishmentName}
+          <span className="hidden sm:block">{establishmentName}</span>
         </Button>
       </DropdownMenuTrigger>
 

@@ -16,7 +16,7 @@ export function SectionCard({ category }: { category: ICategory }) {
   return (
     <Card>
       <CardHeader className="flex-row items-center justify-between">
-        <CardTitle className="font-serif text-xl flex items-center gap-2">
+        <CardTitle className="font-serif text-lg sm:text-xl flex items-center gap-2">
           <Icon className="size-6" />
           {category.name}
         </CardTitle>
