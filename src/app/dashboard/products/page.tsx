@@ -5,7 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { Suspense } from 'react'
 import { CreateProductForm } from './_components/create-product-form'
+import { LoadingForm } from './_components/loading-form'
 
 export default function DashboardProductsPage() {
   return (
@@ -19,7 +21,9 @@ export default function DashboardProductsPage() {
         </CardHeader>
 
         <CardContent>
-          <CreateProductForm />
+          <Suspense fallback={<LoadingForm />}>
+            <CreateProductForm />
+          </Suspense>
         </CardContent>
       </Card>
     </div>
