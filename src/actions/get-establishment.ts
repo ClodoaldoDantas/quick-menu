@@ -7,7 +7,9 @@ export async function getEstablishment() {
   const session = await getSession()
 
   if (!session.isLoggedIn) {
-    throw new Error('User is not authenticated')
+    return {
+      establishment: undefined,
+    }
   }
 
   const establishment = await db.query.establishments.findFirst({
