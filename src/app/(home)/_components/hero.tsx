@@ -1,7 +1,10 @@
 import { Button } from '@/components/ui/button'
+import { getSession } from '@/lib/session'
 import Link from 'next/link'
 
-export function Hero() {
+export async function Hero() {
+  const session = await getSession()
+
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 xl:py-44">
       <div className="container mx-auto px-4 md:px-6">
@@ -17,13 +20,15 @@ export function Hero() {
             </p>
           </div>
 
-          <Button size="lg" className="text-lg">
-            <Link href="/sign-up">Crie sua conta grátis</Link>
-          </Button>
-
-          {/* <Button asChild size="lg" className="text-lg">
-            <Link href="/dashboard">Editar meu cardápio</Link>
-          </Button> */}
+          {session.isLoggedIn ? (
+            <Button asChild size="lg" className="text-lg">
+              <Link href="/dashboard">Editar meu cardápio</Link>
+            </Button>
+          ) : (
+            <Button size="lg" className="text-lg">
+              <Link href="/sign-up">Crie sua conta grátis</Link>
+            </Button>
+          )}
         </div>
       </div>
     </section>

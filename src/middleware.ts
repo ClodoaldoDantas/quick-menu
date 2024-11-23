@@ -4,10 +4,6 @@ import { getSession } from './lib/session'
 export default async function (request: NextRequest) {
   const session = await getSession()
 
-  console.log(session)
-  console.log(request.nextUrl)
-  console.log(request.url)
-
   if (
     !session.isLoggedIn &&
     request.nextUrl.pathname.startsWith('/dashboard')

@@ -1,7 +1,6 @@
 import { getEstablishment } from '@/actions/get-establishment'
-import { Button } from '@/components/ui/button'
-import { StoreIcon } from 'lucide-react'
 import Link from 'next/link'
+import { AccountMenu } from './account-menu'
 import { ShareDialog } from './share-dialog'
 
 export async function Topbar() {
@@ -14,20 +13,12 @@ export async function Topbar() {
           Dashboard
         </Link>
 
-        <div className="flex items-center gap-4">
+        {establishment && (
           <div className="flex items-center gap-2">
-            {establishment && (
-              <ShareDialog establishmentId={establishment.id} />
-            )}
-
-            <Button size="sm" asChild variant="outline">
-              <Link href="/dashboard/profile">
-                <StoreIcon className="size-5" />
-                {establishment?.name}
-              </Link>
-            </Button>
+            <ShareDialog establishmentId={establishment.id} />
+            <AccountMenu establishmentName={establishment.name} />
           </div>
-        </div>
+        )}
       </div>
     </header>
   )
