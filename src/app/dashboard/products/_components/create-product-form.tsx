@@ -1,6 +1,7 @@
 'use client'
 
 import { createProduct } from '@/actions/create-product'
+import { CurrencyInput } from '@/components/currency-input'
 import { SubmitButton } from '@/components/submit-button'
 import {
   Form,
@@ -23,9 +24,7 @@ const createProductFormSchema = z.object({
     message: 'O nome deve ter no mínimo 3 caracteres',
   }),
   description: z.string(),
-  price: z.coerce
-    .number({ message: 'O preço deve ser um número' })
-    .min(1, { message: 'O preço deve ser maior que 0' }),
+  price: z.string().min(1, { message: 'O preço é obrigatório' }),
 })
 
 export type CreateProductFormData = z.infer<typeof createProductFormSchema>
@@ -40,7 +39,7 @@ export function CreateProductForm() {
     resolver: zodResolver(createProductFormSchema),
     defaultValues: {
       name: '',
-      price: 0,
+      price: '',
       description: '',
     },
   })
@@ -50,7 +49,8 @@ export function CreateProductForm() {
       return
     }
 
-    const priceInCents = Math.round(data.price * 100)
+    const priceNumber = Number(data.price.replace('R$ ', '').replace(',', '.'))
+    const priceInCents = Math.round(priceNumber * 100)
 
     const response = await createProduct({
       name: data.name,
@@ -91,7 +91,7 @@ export function CreateProductForm() {
             <FormItem>
               <FormLabel>Preço</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <CurrencyInput value={field.value} onChange={field.onChange} />
               </FormControl>
               <FormMessage />
             </FormItem>
