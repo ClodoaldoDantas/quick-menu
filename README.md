@@ -25,6 +25,23 @@ por meio de dispositivos móveis.
 - Zod
 - Iron Session
 
+## Estrutura de Diretórios
+
+```
+quick-menu/
+├── public/           # Arquivos estáticos
+├── src/
+│   ├── app/          # App Router
+│   ├── actions/      # Server Actions 
+│   ├── components/   # Componentes reutilizáveis
+│   ├── database/     # Configuração do banco de dados
+│   ├── hooks/        # Hooks personalizados
+│   ├── lib/          # Bibliotecas e utilitários
+│   ├── types/        # Type Aliases
+│   └── utils/        # Funções auxiliares
+└── README.md         # Documentação do projeto
+```
+
 ## 👥 Utilizar usuários pré-cadastrados 
 Caso queira acessar a aplicação através do usuário padrão pré-cadastrado, utilize as credenciais abaixo:
 Usuário padrão: "admin@admin.com" + "password"
