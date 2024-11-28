@@ -25,7 +25,7 @@ por meio de dispositivos móveis.
 - Zod
 - Iron Session
 
-## Estrutura de Diretórios
+## 📦 Estrutura de Diretórios
 
 ```
 quick-menu/
