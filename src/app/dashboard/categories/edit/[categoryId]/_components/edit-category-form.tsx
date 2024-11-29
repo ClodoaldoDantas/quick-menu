@@ -1,6 +1,7 @@
 'use client'
 
-import { createCategory } from '@/actions/create-category'
+import { updateCategory } from '@/actions/update-category'
+import { SelectIcon } from '@/components/select-icon'
 import { SubmitButton } from '@/components/submit-button'
 import {
   Form,
@@ -13,40 +14,40 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
+import type { ICategory } from '@/types/menu'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { SelectIcon } from './select-icon'
 
-const createCategoryFormSchema = z.object({
+const editCategoryFormSchema = z.object({
   name: z.string().min(3, {
     message: 'O nome deve ter no mínimo 3 caracteres',
   }),
 })
 
-export type CreateCategoryFormData = z.infer<typeof createCategoryFormSchema>
+export type EditCategoryFormData = z.infer<typeof editCategoryFormSchema>
 
-type CreateCategoryFormProps = {
-  establishmentId: string
+type EditCategoryFormProps = {
+  category: Omit<ICategory, 'products'>
 }
 
-export function CreateCategoryForm(props: CreateCategoryFormProps) {
+export function EditCategoryForm({ category }: EditCategoryFormProps) {
   const { toast } = useToast()
-  const [selectedIcon, setSelectedIcon] = useState<string>('utensils')
+  const [selectedIcon, setSelectedIcon] = useState<string>(category.icon)
 
-  const form = useForm<CreateCategoryFormData>({
-    resolver: zodResolver(createCategoryFormSchema),
+  const form = useForm<EditCategoryFormData>({
+    resolver: zodResolver(editCategoryFormSchema),
     defaultValues: {
-      name: '',
+      name: category.name,
     },
   })
 
-  async function handleCreateCategory(data: CreateCategoryFormData) {
-    const response = await createCategory({
+  async function handleEditCategory(data: EditCategoryFormData) {
+    const response = await updateCategory({
       name: data.name,
       icon: selectedIcon,
-      establishmentId: props.establishmentId,
+      categoryId: category.id,
     })
 
     if (!response.success) {
@@ -57,7 +58,7 @@ export function CreateCategoryForm(props: CreateCategoryFormProps) {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleCreateCategory)}
+        onSubmit={form.handleSubmit(handleEditCategory)}
         className="grid w-full items-center gap-4"
       >
         <FormField

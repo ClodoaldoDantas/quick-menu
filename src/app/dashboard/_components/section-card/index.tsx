@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-import { PlusIcon } from 'lucide-react'
+import { EditIcon, PlusIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
@@ -26,6 +26,13 @@ export function SectionCard({ category }: { category: ICategory }) {
             <Link href={`/dashboard/products?category=${category.id}`}>
               <PlusIcon />
               <span className="sr-only">Adicionar produto</span>
+            </Link>
+          </Button>
+
+          <Button variant="outline" size="icon" asChild>
+            <Link href={`/dashboard/categories/edit/${category.id}`}>
+              <EditIcon />
+              <span className="sr-only">Editar categoria</span>
             </Link>
           </Button>
 

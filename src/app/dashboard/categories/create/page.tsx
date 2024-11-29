@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/card'
 import { CreateCategoryForm } from './_components/create-category-form'
 
-export default async function DashboardCategoriesPage() {
+export default async function CreateCategoryPage() {
   const { establishment } = await getEstablishment()
 
   return (

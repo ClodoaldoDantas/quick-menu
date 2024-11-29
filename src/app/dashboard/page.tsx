@@ -16,7 +16,7 @@ export default async function DashboardPage() {
         <h2 className="text-xl font-serif font-semibold">Cardápio</h2>
 
         <Button size="sm" asChild>
-          <Link href="/dashboard/categories">
+          <Link href="/dashboard/categories/create">
             <BadgePlus className="size-6" />
             Nova Categoria
           </Link>
