@@ -3,7 +3,7 @@
 import { deleteCategory } from '@/actions/delete-category'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/hooks/use-toast'
-import { Trash2Icon } from 'lucide-react'
+import { TrashIcon } from 'lucide-react'
 
 export function DeleteCategoryButton({ categoryId }: { categoryId: string }) {
   const { toast } = useToast()
@@ -26,7 +26,7 @@ export function DeleteCategoryButton({ categoryId }: { categoryId: string }) {
 
   return (
     <Button onClick={handleDeleteCategory} variant="outline" size="icon">
-      <Trash2Icon />
+      <TrashIcon />
       <span className="sr-only">Deletar categoria</span>
     </Button>
   )

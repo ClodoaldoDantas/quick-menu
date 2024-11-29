@@ -3,7 +3,7 @@
 import { deleteProduct } from '@/actions/delete-product'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/hooks/use-toast'
-import { XIcon } from 'lucide-react'
+import { TrashIcon } from 'lucide-react'
 
 export function DeleteProductButton({ productId }: { productId: string }) {
   const { toast } = useToast()
@@ -26,7 +26,7 @@ export function DeleteProductButton({ productId }: { productId: string }) {
 
   return (
     <Button onClick={handleDeleteProduct} variant="outline" size="icon">
-      <XIcon />
+      <TrashIcon />
       <span className="sr-only">Deletar produto</span>
     </Button>
   )
