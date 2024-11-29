@@ -8,7 +8,7 @@ import {
 import { Suspense } from 'react'
 import { CreateProductForm } from './_components/create-product-form'
 
-export default function DashboardProductsPage() {
+export default function CreateProductPage() {
   return (
     <div className="flex items-center justify-center">
       <Card className="max-w-[460px] w-full">

@@ -23,7 +23,7 @@ export function SectionCard({ category }: { category: ICategory }) {
 
         <div className="flex items-center gap-2">
           <Button variant="outline" size="icon" asChild>
-            <Link href={`/dashboard/products?category=${category.id}`}>
+            <Link href={`/dashboard/products/create?category=${category.id}`}>
               <PlusIcon />
               <span className="sr-only">Adicionar produto</span>
             </Link>

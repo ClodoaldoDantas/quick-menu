@@ -1,5 +1,8 @@
+import { Button } from '@/components/ui/button'
 import type { IProduct } from '@/types/menu'
 import { priceFormatter } from '@/utils/price-formatter'
+import { EditIcon } from 'lucide-react'
+import Link from 'next/link'
 import { DeleteProductButton } from './delete-product-button'
 
 export function ProductItem({ product }: { product: IProduct }) {
@@ -20,6 +23,13 @@ export function ProductItem({ product }: { product: IProduct }) {
       </div>
 
       <div className="flex items-center gap-2">
+        <Button variant="outline" size="icon" asChild>
+          <Link href={`/dashboard/products/edit/${product.id}`}>
+            <EditIcon />
+            <span className="sr-only">Editar produto</span>
+          </Link>
+        </Button>
+
         <DeleteProductButton productId={product.id} />
       </div>
     </div>

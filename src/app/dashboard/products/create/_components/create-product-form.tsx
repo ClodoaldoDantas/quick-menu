@@ -14,6 +14,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/hooks/use-toast'
+import { parseToCents } from '@/utils/parse-to-cents'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
@@ -49,8 +50,7 @@ export function CreateProductForm() {
       return
     }
 
-    const priceNumber = Number(data.price.replace('R$ ', '').replace(',', '.'))
-    const priceInCents = Math.round(priceNumber * 100)
+    const priceInCents = parseToCents(data.price)
 
     const response = await createProduct({
       name: data.name,
