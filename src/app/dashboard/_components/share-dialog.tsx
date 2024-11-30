@@ -9,12 +9,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Share2Icon } from 'lucide-react'
+import { Share2Icon, SquareArrowOutUpRightIcon } from 'lucide-react'
 import { CopyToClipboard } from './copy-to-clipboard'
 import { QrCodeDisplay } from './qr-code-display'
 
 export function ShareDialog({ establishmentId }: { establishmentId: string }) {
-  const url = new URL(`/menu/${establishmentId}`, window.location.origin)
+  const url = new URL(
+    `/menu/${establishmentId}`,
+    window.location.origin,
+  ).toString()
 
   return (
     <Dialog>
@@ -34,8 +37,16 @@ export function ShareDialog({ establishmentId }: { establishmentId: string }) {
         </DialogHeader>
 
         <div className="space-y-2">
-          <QrCodeDisplay value={url.toString()} />
-          <CopyToClipboard value={url.toString()} />
+          <QrCodeDisplay value={url} />
+
+          <Button asChild className="w-full" variant="outline">
+            <a href={url} target="_blank" rel="noreferrer">
+              <SquareArrowOutUpRightIcon className="size-6" />
+              Acessar a página
+            </a>
+          </Button>
+
+          <CopyToClipboard value={url} />
         </div>
       </DialogContent>
     </Dialog>
