@@ -9,7 +9,7 @@ export const establishments = sqliteTable('establishments', {
     .primaryKey(),
   name: text('name').notNull(),
   description: text('description'),
-  email: text('email').unique(),
+  email: text('email').unique().notNull(),
   password: text('password').notNull(),
   createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
 })

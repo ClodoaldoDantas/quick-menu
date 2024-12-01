@@ -18,6 +18,7 @@ export async function getEstablishment() {
       id: true,
       name: true,
       description: true,
+      email: true,
     },
   })
 

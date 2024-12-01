@@ -16,7 +16,9 @@ export async function Topbar() {
         {establishment && (
           <div className="flex items-center gap-2">
             <ShareDialog establishmentId={establishment.id} />
-            <AccountMenu establishmentName={establishment.name} />
+            <AccountMenu
+              profile={{ name: establishment.name, email: establishment.email }}
+            />
           </div>
         )}
       </div>

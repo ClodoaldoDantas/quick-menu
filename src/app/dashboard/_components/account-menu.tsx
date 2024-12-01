@@ -6,16 +6,21 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { LogOutIcon, StoreIcon, UserCircleIcon } from 'lucide-react'
+import { LogOutIcon, MailIcon, StoreIcon, UserCircleIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 type AccountMenuProps = {
-  establishmentName: string
+  profile: {
+    email: string
+    name: string
+  }
 }
 
-export function AccountMenu({ establishmentName }: AccountMenuProps) {
+export function AccountMenu({ profile }: AccountMenuProps) {
   const router = useRouter()
 
   return (
@@ -23,11 +28,18 @@ export function AccountMenu({ establishmentName }: AccountMenuProps) {
       <DropdownMenuTrigger asChild>
         <Button size="sm" variant="outline">
           <StoreIcon className="size-5" />
-          <span className="hidden sm:block">{establishmentName}</span>
+          <span className="hidden sm:block">{profile.name}</span>
         </Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="w-56">
+        <DropdownMenuLabel className="flex items-center gap-2">
+          <MailIcon className="size-5" />
+          {profile.email}
+        </DropdownMenuLabel>
+
+        <DropdownMenuSeparator />
+
         <DropdownMenuItem onClick={() => router.push('/dashboard/profile')}>
           <UserCircleIcon className="size-5" />
           <span>Editar conta</span>

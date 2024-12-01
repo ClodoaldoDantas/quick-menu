@@ -50,6 +50,13 @@
       "when": 1732300365210,
       "tag": "0006_moaning_lightspeed",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1733084623716,
+      "tag": "0007_nostalgic_solo",
+      "breakpoints": true
     }
   ]
 }
