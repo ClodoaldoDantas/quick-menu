@@ -1,13 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-import { EditIcon, PlusIcon } from 'lucide-react'
-
-import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import type { ICategory } from '@/types/menu'
 import { icons } from '@/utils/icons'
-import Link from 'next/link'
-import { DeleteCategoryButton } from './delete-category-button'
+import { CategoryMenu } from './category-menu'
 import { ProductItem } from './product-item'
 
 export function SectionCard({ category }: { category: ICategory }) {
@@ -21,23 +17,7 @@ export function SectionCard({ category }: { category: ICategory }) {
           {category.name}
         </CardTitle>
 
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" asChild>
-            <Link href={`/dashboard/products/create?category=${category.id}`}>
-              <PlusIcon />
-              <span className="sr-only">Adicionar produto</span>
-            </Link>
-          </Button>
-
-          <Button variant="outline" size="icon" asChild>
-            <Link href={`/dashboard/categories/edit/${category.id}`}>
-              <EditIcon />
-              <span className="sr-only">Editar categoria</span>
-            </Link>
-          </Button>
-
-          <DeleteCategoryButton categoryId={category.id} />
-        </div>
+        <CategoryMenu categoryId={category.id} />
       </CardHeader>
 
       <CardContent>

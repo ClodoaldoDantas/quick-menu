@@ -1,7 +1,5 @@
-'use client'
-
 import { deleteCategory } from '@/actions/delete-category'
-import { Button } from '@/components/ui/button'
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import { useToast } from '@/hooks/use-toast'
 import { TrashIcon } from 'lucide-react'
 
@@ -25,9 +23,11 @@ export function DeleteCategoryButton({ categoryId }: { categoryId: string }) {
   }
 
   return (
-    <Button onClick={handleDeleteCategory} variant="outline" size="icon">
-      <TrashIcon />
-      <span className="sr-only">Deletar categoria</span>
-    </Button>
+    <DropdownMenuItem asChild>
+      <button type="button" className="w-full" onClick={handleDeleteCategory}>
+        <TrashIcon className="size-5" />
+        <span>Deletar categoria</span>
+      </button>
+    </DropdownMenuItem>
   )
 }
