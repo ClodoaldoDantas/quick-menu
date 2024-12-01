@@ -1,6 +1,5 @@
 'use server'
 
-import type { LoginFormData } from '@/app/sign-in/_components/login-form'
 import { db } from '@/database'
 import { establishments } from '@/database/schema'
 import { getSession } from '@/lib/session'
@@ -8,12 +7,17 @@ import bcrypt from 'bcrypt'
 import { eq } from 'drizzle-orm'
 import { redirect } from 'next/navigation'
 
+type LoginRequest = {
+  email: string
+  password: string
+}
+
 type LoginResponse = {
   success: boolean
   message: string
 }
 
-export async function login(data: LoginFormData): Promise<LoginResponse> {
+export async function login(data: LoginRequest): Promise<LoginResponse> {
   const { email, password } = data
 
   const establishment = await db.query.establishments.findFirst({

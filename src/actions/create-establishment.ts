@@ -1,11 +1,17 @@
 'use server'
 
-import type { CreateEstablishmentFormData } from '@/app/sign-up/_components/create-establishment-form'
 import { db } from '@/database'
 import { establishments } from '@/database/schema'
 import bcrypt from 'bcrypt'
 import { eq } from 'drizzle-orm'
 import { redirect } from 'next/navigation'
+
+type CreateEstablishmentRequest = {
+  name: string
+  description: string
+  email: string
+  password: string
+}
 
 type CreateEstablishmentResponse = {
   success: boolean
@@ -13,7 +19,7 @@ type CreateEstablishmentResponse = {
 }
 
 export async function createEstablishment(
-  data: CreateEstablishmentFormData,
+  data: CreateEstablishmentRequest,
 ): Promise<CreateEstablishmentResponse> {
   const { name, description, email, password } = data
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { login } from '@/actions/login'
+import { createEstablishment } from '@/actions/create-establishment'
 import { SubmitButton } from '@/components/submit-button'
 import {
   Form,
@@ -11,12 +11,17 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/hooks/use-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-const loginFormSchema = z.object({
+const createEstablishmentFormSchema = z.object({
+  name: z.string().min(3, {
+    message: 'O nome deve ter no mínimo 3 caracteres',
+  }),
+  description: z.string(),
   email: z.string().email({
     message: 'Digite um email válido',
   }),
@@ -25,21 +30,23 @@ const loginFormSchema = z.object({
   }),
 })
 
-export type LoginFormData = z.infer<typeof loginFormSchema>
+type CreateEstablishmentFormData = z.infer<typeof createEstablishmentFormSchema>
 
-export function LoginForm() {
+export function CreateEstablishmentForm() {
   const { toast } = useToast()
 
-  const form = useForm<LoginFormData>({
-    resolver: zodResolver(loginFormSchema),
+  const form = useForm<CreateEstablishmentFormData>({
+    resolver: zodResolver(createEstablishmentFormSchema),
     defaultValues: {
+      name: '',
+      description: '',
       email: '',
       password: '',
     },
   })
 
-  async function handleCreateEstablishment(data: LoginFormData) {
-    const response = await login(data)
+  async function handleCreateEstablishment(data: CreateEstablishmentFormData) {
+    const response = await createEstablishment(data)
 
     if (!response.success) {
       toast({ title: response.message, variant: 'destructive' })
@@ -52,6 +59,33 @@ export function LoginForm() {
         onSubmit={form.handleSubmit(handleCreateEstablishment)}
         className="grid w-full items-center gap-4"
       >
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Nome</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Descrição</FormLabel>
+              <FormControl>
+                <Textarea {...field} className="min-h-20" />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={form.control}
           name="email"
@@ -81,7 +115,7 @@ export function LoginForm() {
         />
 
         <SubmitButton isLoading={form.formState.isSubmitting}>
-          Entrar
+          Salvar Registro
         </SubmitButton>
       </form>
     </Form>

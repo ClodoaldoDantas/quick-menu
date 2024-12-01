@@ -1,6 +1,6 @@
 'use client'
 
-import { createEstablishment } from '@/actions/create-establishment'
+import { login } from '@/actions/login'
 import { SubmitButton } from '@/components/submit-button'
 import {
   Form,
@@ -11,17 +11,12 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/hooks/use-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-const createEstablishmentFormSchema = z.object({
-  name: z.string().min(3, {
-    message: 'O nome deve ter no mínimo 3 caracteres',
-  }),
-  description: z.string(),
+const loginFormSchema = z.object({
   email: z.string().email({
     message: 'Digite um email válido',
   }),
@@ -30,25 +25,21 @@ const createEstablishmentFormSchema = z.object({
   }),
 })
 
-export type CreateEstablishmentFormData = z.infer<
-  typeof createEstablishmentFormSchema
->
+type LoginFormData = z.infer<typeof loginFormSchema>
 
-export function CreateEstablishmentForm() {
+export function LoginForm() {
   const { toast } = useToast()
 
-  const form = useForm<CreateEstablishmentFormData>({
-    resolver: zodResolver(createEstablishmentFormSchema),
+  const form = useForm<LoginFormData>({
+    resolver: zodResolver(loginFormSchema),
     defaultValues: {
-      name: '',
-      description: '',
       email: '',
       password: '',
     },
   })
 
-  async function handleCreateEstablishment(data: CreateEstablishmentFormData) {
-    const response = await createEstablishment(data)
+  async function handleCreateEstablishment(data: LoginFormData) {
+    const response = await login(data)
 
     if (!response.success) {
       toast({ title: response.message, variant: 'destructive' })
@@ -61,33 +52,6 @@ export function CreateEstablishmentForm() {
         onSubmit={form.handleSubmit(handleCreateEstablishment)}
         className="grid w-full items-center gap-4"
       >
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Nome</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Descrição</FormLabel>
-              <FormControl>
-                <Textarea {...field} className="min-h-20" />
-              </FormControl>
-            </FormItem>
-          )}
-        />
-
         <FormField
           control={form.control}
           name="email"
@@ -117,7 +81,7 @@ export function CreateEstablishmentForm() {
         />
 
         <SubmitButton isLoading={form.formState.isSubmitting}>
-          Salvar Registro
+          Entrar
         </SubmitButton>
       </form>
     </Form>
